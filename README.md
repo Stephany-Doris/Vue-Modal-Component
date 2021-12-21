@@ -1,4 +1,4 @@
-# hello-world
+# Modal Component
 
 ## Project setup
 ```

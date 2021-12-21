@@ -1,26 +1,48 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <button :class="{ active: modalOpen }" @click="toggleModalState">
+    Open Modal
+  </button>
+  <teleport to="#modal-wrapper">
+    <modal v-if="modalOpen" @close="toggleModalState">
+      <p>Hello, am a modal window</p>
+    </modal>
+  </teleport>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Modal from "./Modal.vue";
+import { ref } from "vue";
 
 export default {
-  name: 'App',
+  setup() {
+    const modalOpen = ref(false);
+    const toggleModalState = () => {
+      modalOpen.value = !modalOpen.value;
+    };
+    return {
+      modalOpen,
+      toggleModalState,
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
+    Modal,
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+@import "./main.css";
+
+button {
+  height: 30px;
+  width: fit-content;
+  min-width: 150px;
+  background: transparent;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.active {
+  border: 3px solid #4fa2e8;
 }
 </style>
